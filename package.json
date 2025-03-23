@@ -7,6 +7,11 @@
     "serve": "turbo run serve",
     "start": "turbo run start",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:check": "turbo run db:check",
+    "db:generate": "turbo run db:generate",
+    "db:migrate": "turbo run db:migrate",
+    "db:seed": "turbo run db:seed",
+    "db:init": "turbo run db:init"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

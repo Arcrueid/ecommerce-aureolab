@@ -1,0 +1,30 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "db:check": "drizzle-kit check",
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "ts-node ./migrate.ts",
+    "db:seed": "ts-node ./seed.ts",
+    "db:init": "npm run db:check && npm run db:generate && npm run db:migrate && npm run db:seed"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.30.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@types/pg": "^8.11.11",
+    "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.41.0",
+    "drizzle-seed": "^0.3.1",
+    "pg": "^8.14.1",
+    "postgres": "^3.4.5"
+  }
+}

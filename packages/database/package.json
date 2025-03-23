@@ -20,6 +20,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.6.0",
     "@types/pg": "^8.11.11",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.41.0",

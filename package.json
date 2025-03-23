@@ -4,6 +4,9 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "serve": "turbo run serve",
+    "start": "turbo run start",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
   },
   "devDependencies": {
     "eslint": "^8.57.0",

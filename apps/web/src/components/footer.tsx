@@ -1,17 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { FacebookIcon, LinkedinIcon } from "lucide-react";
 
+import { LogoAureolab } from "./logo-aureolab";
+
 export const Footer = () => {
   return (
     <footer className="mt-auto flex min-h-40 flex-col border-t border-gray-200 bg-[#161b1e]">
       <div className="container mx-auto flex items-center justify-center gap-2 p-12">
         <div className="flex w-full flex-row items-center justify-between gap-8">
           <Link to="/" className="flex" aria-label="Ir a la página principal">
-            <img
-              src="/logo-aureolab-white.svg"
-              alt="Aureolab"
-              className="w-36"
-            />
+            <LogoAureolab className="w-36 hover:text-[#fed137]" />
           </Link>
 
           <div className="flex flex-1 items-center justify-end gap-2">

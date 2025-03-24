@@ -1,18 +1,16 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": "true",
   "scripts": {
     "dev": "ts-node src/index.ts",
     "build": "tsc --project tsconfig.json",
     "serve": "node dist/index.js",
     "start": "node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "@repo/database": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
     "@types/express": "^5.0.1",
     "@types/node": "^22.13.11",
     "express": "^4.21.2",

@@ -1,5 +1,7 @@
-import express, { Request, Response } from "express";
+import express, { type Request, type Response } from "express";
 import dotenv from "dotenv";
+import { db } from "@repo/database";
+import { productsTable } from "@repo/database/schema";
 
 dotenv.config({ path: "../.env" });
 const PORT = process.env.API_PORT || 3001;
@@ -7,8 +9,9 @@ const app = express();
 
 app.use(express.json());
 
-app.get("/", (request: Request, response: Response) => {
-  response.status(200).send("Hello World");
+app.get("/api/products", async (_request: Request, response: Response) => {
+  const products = await db.select().from(productsTable);
+  response.status(200).json(products);
 });
 
 app

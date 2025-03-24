@@ -20,5 +20,6 @@
     "strict": true,
     "strictNullChecks": true
   },
+  "include": ["**/*.ts", "**/*.tsx", ".eslintrc.cjs"],
   "exclude": ["dist", "node_modules"]
 }

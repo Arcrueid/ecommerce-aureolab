@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+
+import { createFileRoute } from "@tanstack/react-router";
 
 function Index() {
   const [products, setProducts] = useState("hola");
@@ -9,10 +10,10 @@ function Index() {
       setProducts("adios");
     }
     console.log({ products });
-  }, [products, setProducts]);
+  }, [products]);
 
   return (
-    <div className="p-2">
+    <div>
       <h3>Welcome Home!</h3>
     </div>
   );

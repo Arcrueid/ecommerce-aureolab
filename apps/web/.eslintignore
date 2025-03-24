@@ -1,0 +1,10 @@
+node_modules
+.turbo
+build
+dist
+coverage
+public
+*.config.js
+*.config.ts
+**/*.d.ts
+pnpm-lock.yaml

@@ -47,7 +47,7 @@ export const Footer = () => {
         </div>
       </div>
       <div className="container mx-auto mt-auto mb-3 flex items-center justify-center gap-2 p-2 text-sm font-light text-gray-400">
-        <small>© 2025 Aureolab. All rights reserved.</small>
+        <small>© 2025 Aureolab. Todos los derechos reservados.</small>
       </div>
     </footer>
   );

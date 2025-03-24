@@ -1,6 +1,20 @@
-import { count, db, eq, ilike, type SQL } from "@repo/database";
+import {
+  type AnyColumn,
+  asc,
+  count,
+  db,
+  desc,
+  eq,
+  ilike,
+  type SQL,
+} from "@repo/database";
 import { productsTable } from "@repo/database/schema";
-import { type NextFunction, type Request, type Response, Router } from "express";
+import {
+  type NextFunction,
+  type Request,
+  type Response,
+  Router,
+} from "express";
 import createHttpError from "http-errors";
 import { z } from "zod";
 import { validateParams, validateQuery } from "../middlewares/validation";
@@ -32,6 +46,7 @@ router.get(
       const page = Math.max(1, input?.page ?? 1);
       const perPage = Math.min(100, input?.per_page ?? 10);
       const offset = (page - 1) * perPage;
+      const orderFn = input?.order === "asc" ? asc : desc;
 
       const searchTerm = input?.search?.trim();
       const whereCondition: SQL | undefined = searchTerm
@@ -45,6 +60,15 @@ router.get(
           .where(whereCondition)
           .limit(perPage)
           .offset(offset)
+          .orderBy(
+            orderFn(
+              input?.order_by
+                ? (productsTable[
+                    input?.order_by as keyof typeof productsTable
+                  ] as AnyColumn)
+                : productsTable.createdAt
+            )
+          )
           .execute(),
         db
           .select({ total: count() })

@@ -8,8 +8,12 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 dotenv.config({ path: "../../.env" });
 const PORT = process.env.WEB_PORT || 3000;
+const API_URL = process.env.API_URL || "http://localhost:3001";
 
 export default defineConfig({
+  define: {
+    __API_URL__: JSON.stringify(API_URL),
+  },
   server: {
     port: Number(PORT),
     host: "localhost",

@@ -1,18 +1,27 @@
-import express, { type Request, type Response } from "express";
 import dotenv from "dotenv";
-import { db } from "@repo/database";
-import { productsTable } from "@repo/database/schema";
+import express, { type Request, type Response } from "express";
+import { errorHandler } from "./utils/errorHandler";
+import productRoutes from "./routes/products";
+import cors from "cors";
 
 dotenv.config({ path: "../.env" });
 const PORT = process.env.API_PORT || 3001;
 const app = express();
 
+// Middlewares
 app.use(express.json());
+app.use(cors());
 
-app.get("/api/products", async (_request: Request, response: Response) => {
-  const products = await db.select().from(productsTable);
-  response.status(200).json(products);
+// API routes
+app.use("/api/products", productRoutes);
+
+// Base health check route
+app.get("/api/health", (_req: Request, res: Response) => {
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
+
+// Error handling middleware
+app.use(errorHandler);
 
 app
   .listen(PORT, () => {

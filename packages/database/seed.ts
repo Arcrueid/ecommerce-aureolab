@@ -28,6 +28,7 @@ async function main() {
       slug: slug,
       price: faker.number.int({ min: 5000, max: 10000 }),
       description: faker.commerce.productDescription(),
+      category: faker.commerce.department(),
       image: faker.image.urlPicsumPhotos({
         width: 720,
         height: 720,

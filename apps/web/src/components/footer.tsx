@@ -6,8 +6,8 @@ import { LogoAureolab } from "./logo-aureolab";
 export const Footer = () => {
   return (
     <footer className="mt-auto flex min-h-40 flex-col border-t border-gray-200 bg-[#161b1e]">
-      <div className="container mx-auto flex items-center justify-center gap-2 p-12">
-        <div className="flex w-full flex-row items-center justify-between gap-8">
+      <div className="container mx-auto flex items-center justify-center gap-2 p-8 sm:p-12">
+        <div className="flex w-full flex-col items-center justify-between gap-8 sm:flex-row">
           <Link to="/" className="flex" aria-label="Ir a la página principal">
             <LogoAureolab className="w-36 hover:text-[#fed137]" />
           </Link>

@@ -6,15 +6,17 @@ import { LogoAureolab } from "./logo-aureolab";
 export const Header = () => {
   return (
     <div className="border-b border-gray-200">
-      <div className="container mx-auto flex h-16 items-center gap-2 px-2">
+      <div className="container mx-auto flex h-16 items-center gap-2 px-5 md:pl-1">
         <div className="flex w-full flex-row gap-2">
-          <div className="flex flex-1">
+          <div className="flex flex-1 md:hidden">Menu</div>
+
+          <div className="flex flex-1 items-center justify-center md:justify-start">
             <Link to="/">
-              <LogoAureolab className="w-44 text-black" />
+              <LogoAureolab className="w-36 text-black md:w-44" />
             </Link>
           </div>
 
-          <nav className="flex items-center justify-center gap-8">
+          <nav className="hidden items-center justify-center gap-8 md:flex">
             <Link
               to="/"
               className="text-sm font-medium text-gray-400 [&.active]:text-black"
@@ -44,7 +46,7 @@ export const Header = () => {
           <div className="flex flex-1 items-center justify-end gap-8">
             <Link
               to="/profile"
-              className="text-sm font-medium text-gray-400 [&.active]:text-black"
+              className="hidden text-sm font-medium text-gray-400 md:flex [&.active]:text-black"
             >
               Perfil
             </Link>

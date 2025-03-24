@@ -16,37 +16,12 @@ export const Header = () => {
             </Link>
           </div>
 
-          <nav className="hidden items-center justify-center gap-8 md:flex">
-            <Link
-              to="/"
-              className="text-sm font-medium text-gray-400 [&.active]:text-black"
-            >
-              Women
-            </Link>
-            <Link
-              to="/"
-              className="text-sm font-medium text-gray-400 [&.active]:text-black"
-            >
-              Men
-            </Link>
-            <Link
-              to="/"
-              className="text-sm font-medium text-gray-400 [&.active]:text-black"
-            >
-              Company
-            </Link>
-            <Link
-              to="/"
-              className="text-sm font-medium text-gray-400 [&.active]:text-black"
-            >
-              Stores
-            </Link>
-          </nav>
+          <div className="hidden items-center justify-center gap-8 md:flex"></div>
 
           <div className="flex flex-1 items-center justify-end gap-8">
             <Link
               to="/profile"
-              className="hidden text-sm font-medium text-gray-400 md:flex [&.active]:text-black"
+              className="hidden text-sm font-medium text-gray-400 hover:text-black md:flex [&.active]:text-black"
             >
               Perfil
             </Link>

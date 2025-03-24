@@ -8,16 +8,14 @@ import { type PaginateResponse } from "~/models/request";
 import { ProductCard } from "./product-card";
 
 export const LatestProducts = () => {
-  const { data: products, isLoading } = useQuery({
+  const { data: products } = useQuery({
     queryKey: ["latest-products"],
     queryFn: () => fetchProducts(),
   });
 
-  console.log({ products, isLoading });
-
   return (
     <section className="container mx-auto my-12">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex items-center justify-between px-3 sm:px-0">
         <h2 className="text-2xl font-bold">Últimos Productos</h2>
         <Link
           to="/productos"
@@ -26,7 +24,7 @@ export const LatestProducts = () => {
           Ver Todos <ArrowRightIcon className="size-4" />
         </Link>
       </div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-8 px-4 sm:grid-cols-2 sm:gap-3 sm:px-0 md:grid-cols-2 md:gap-3 lg:grid-cols-4 xl:gap-6">
         {products?.data?.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

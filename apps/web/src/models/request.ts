@@ -8,9 +8,20 @@ export const PaginateRequest = z.object({
   search: z.string().nullish(),
 });
 
+const PaginateMeta = z.object({
+  from: z.number(),
+  to: z.number(),
+  records: z.number(),
+  page: z.number(),
+  per_page: z.number(),
+  total_pages: z.number(),
+});
+
+type PaginateMeta = z.infer<typeof PaginateMeta>;
+
 export type PaginateRequest = z.infer<typeof PaginateRequest>;
 
 export type PaginateResponse<T> = {
   data: T[];
-  meta: PaginateRequest;
+  meta: PaginateMeta;
 };

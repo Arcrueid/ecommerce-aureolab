@@ -9,7 +9,7 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <Header />
-      <div className="container mx-auto p-2">
+      <div className="container mx-auto">
         <Outlet />
       </div>
       <Footer />

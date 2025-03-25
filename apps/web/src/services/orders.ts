@@ -14,3 +14,9 @@ export async function createOrder(
     body: JSON.stringify({ ...checkoutData, payment: paymentIntent }),
   }).then((res) => res.json());
 }
+
+export async function fetchOrders(email: string) {
+  return fetch(`${__API_URL__}/api/orders/by-email/${email}`).then((res) =>
+    res.json(),
+  );
+}

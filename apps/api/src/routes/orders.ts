@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { z } from "zod";
-import { validateBody } from "../middlewares/validation";
+import { validateBody, validateParams } from "../middlewares/validation";
 import { db } from "@repo/database";
 import { ordersTable, orderItemsTable } from "@repo/database/schema";
 
@@ -85,6 +85,41 @@ router.post(
       });
     } catch (error) {
       console.error("Error creating order:", error);
+      next(error);
+    }
+  }
+);
+
+// Obtener pedidos por email
+router.get(
+  "/by-email/:email",
+  validateParams(z.object({ email: z.string().email() })),
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { email } = req.params;
+
+      db.query.ordersTable
+        .findMany({
+          where: (orders, { eq }) => eq(orders.customerEmail, email),
+          with: {
+            items: true,
+          },
+        })
+        .then((orders) => {
+          if (!orders.length) {
+            return res
+              .status(404)
+              .json({ message: "No orders found for this email" });
+          }
+
+          res.status(200).json(orders);
+        })
+        .catch((error) => {
+          console.error("Error getting orders by email:", error);
+          next(error);
+        });
+    } catch (error) {
+      console.error("Error in route handler:", error);
       next(error);
     }
   }

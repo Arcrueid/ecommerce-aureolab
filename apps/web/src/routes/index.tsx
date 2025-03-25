@@ -17,6 +17,7 @@ function Index() {
 
   return (
     <>
+      <h1 className="sr-only">Aureolab E-commerce</h1>
       <Hero />
       <LatestProducts />
     </>

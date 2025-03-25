@@ -17,7 +17,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
   }, [addItem, product]);
 
   return (
-    <article className="flex flex-col items-center gap-2 rounded-sm border p-3 pb-4 shadow-2xs transition-shadow duration-300 hover:shadow-xl">
+    <article className="flex flex-col items-center gap-2 rounded-sm border p-4 shadow-2xs transition-shadow duration-300 hover:shadow-xl">
       <div className="flex flex-1 flex-col items-start">
         <figure className="mb-4 aspect-square w-full overflow-clip rounded-xs bg-gray-100">
           <img

@@ -21,7 +21,10 @@ function ProductsPage() {
           </p>
         </div>
       </header>
-      <nav className="mb-6 flex w-full" aria-label="Paginación superior">
+      <nav
+        className="my-3 flex w-full sm:mt-0 sm:mb-6"
+        aria-label="Paginación superior"
+      >
         <div className="mx-auto flex md:mr-0 md:ml-auto">
           <ListPagination
             total={products?.meta.total_pages || 0}

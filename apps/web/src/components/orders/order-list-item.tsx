@@ -6,6 +6,17 @@ import { useOrders } from "~/hooks/use-orders";
 import { formatCurrency, formatDate } from "~/lib/utils";
 import { requestRefund, type Order, type OrderItem } from "~/services/orders";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 
@@ -165,34 +176,95 @@ export const OrderListItem = ({ order }: { order: Order }) => {
               <p className="font-bold">{formatCurrency(order.total)}</p>
             </div>
 
-            {/* Only show refund buttons if the order is completed or partially refunded */}
             {(order.status === "succeeded" ||
               order.status === "partially_refunded") && (
               <div className="flex flex-wrap gap-2">
-                <Button
-                  variant="outline"
-                  disabled={!!refundInProgress}
-                  onClick={() => handleRefund(order.id, false)}
-                  className="flex-1"
-                >
-                  {refundInProgress === order.id
-                    ? "Procesando..."
-                    : "Solicitar reembolso total"}
-                </Button>
-                <Button
-                  variant="outline"
-                  disabled={
-                    !!refundInProgress ||
-                    selectedItemsCount === order.items.length ||
-                    selectedItemsCount === 0
-                  }
-                  onClick={() => handleRefund(order.id, true)}
-                  className="flex-1"
-                >
-                  {refundInProgress === order.id
-                    ? "Procesando..."
-                    : "Solicitar reembolso parcial"}
-                </Button>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      disabled={!!refundInProgress}
+                      className="flex-1 cursor-pointer"
+                    >
+                      {refundInProgress === order.id
+                        ? "Procesando..."
+                        : "Solicitar reembolso total"}
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        ¿Confirmar reembolso total?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Esta acción procesará un reembolso por el monto total de
+                        los productos no reembolsados previamente. No se puede
+                        deshacer una vez completada.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => handleRefund(order.id, false)}
+                      >
+                        Confirmar
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant="outline"
+                      disabled={
+                        !!refundInProgress ||
+                        selectedItemsCount === order.items.length ||
+                        selectedItemsCount === 0
+                      }
+                      className="flex-1 cursor-pointer"
+                    >
+                      {refundInProgress === order.id
+                        ? "Procesando..."
+                        : "Solicitar reembolso parcial"}
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        ¿Confirmar reembolso parcial?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription asChild>
+                        <div>
+                          <p className="mb-2">
+                            Esta acción procesará un reembolso para los
+                            siguientes productos:
+                          </p>
+                          <ul className="max-h-32 overflow-y-auto pl-5 text-sm text-black">
+                            {order.items
+                              .filter((item) => selectedItems[item.id])
+                              .map((item) => (
+                                <li key={item.id} className="list-disc">
+                                  {item.name} -{" "}
+                                  {formatCurrency(item.price * item.quantity)}
+                                </li>
+                              ))}
+                          </ul>
+                          <p className="mt-2">
+                            No se puede deshacer una vez completada esta acción.
+                          </p>
+                        </div>
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => handleRefund(order.id, true)}
+                      >
+                        Confirmar
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             )}
           </div>

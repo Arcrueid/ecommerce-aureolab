@@ -17,8 +17,8 @@ import {
 import { cn, formatCurrency } from "~/lib/utils";
 import { useCartStore } from "~/stores/cart-store";
 
+import { Button } from "../ui/button";
 import { CartListItem } from "./cart-list-item";
-import { Button } from "./ui/button";
 
 export const CartButton = () => {
   const {

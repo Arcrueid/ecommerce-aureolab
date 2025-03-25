@@ -1,6 +1,6 @@
 import { type Product } from "@repo/database";
 
-import { CartListItem } from "~/components/cart-list-item";
+import { CartListItem } from "~/components/cart/cart-list-item";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { cn, formatCurrency, formatNumber } from "~/lib/utils";
 import type { CartItem } from "~/stores/cart-store";

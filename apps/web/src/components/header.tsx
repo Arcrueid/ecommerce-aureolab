@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import { CartButton } from "./cart-button";
+import { CartButton } from "./cart/cart-button";
 import { LogoAureolab } from "./logo-aureolab";
 
 export const Header = () => {

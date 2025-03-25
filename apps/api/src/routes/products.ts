@@ -22,7 +22,6 @@ import { createPaginationMeta } from "../utils/pagination";
 
 const router = Router();
 
-// Zod validation schemas
 const productIdSchema = z.object({
   id: z.string().uuid(),
 });
@@ -35,7 +34,6 @@ const PaginateRequest = z.object({
   search: z.string().nullish(),
 });
 
-// Route to list all products with optional filters
 router.get(
   "/",
   validateQuery(PaginateRequest),

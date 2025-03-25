@@ -9,6 +9,7 @@ export type CartItem = {
 };
 
 type CartStore = {
+  email: string;
   items: CartItem[];
   totalItems: number;
   totalPrice: number;
@@ -21,16 +22,19 @@ type CartActions = {
   updateQuantity: (product: Product, quantity: number) => void;
   clearCart: () => void;
   setShowCart: (show: boolean) => void;
+  setEmail: (email: string) => void;
 };
 
 export const useCartStore = create(
   persist<CartStore & CartActions>(
     (set, get) => ({
+      email: "",
       items: [],
       totalItems: 0,
       totalPrice: 0,
       showCart: false,
       setShowCart: (show: boolean) => set({ showCart: show }),
+      setEmail: (email: string) => set({ email }),
       addItem: (product: Product, quantity = 1, restore = false) => {
         const { items } = get();
         const existingItem = items.find(
@@ -58,7 +62,7 @@ export const useCartStore = create(
           0,
         );
 
-        set({ items: newItems, totalItems, totalPrice });
+        set({ items: newItems, totalItems, totalPrice, showCart: true });
 
         toast.success(
           restore ? `${quantity} x ${product.name}` : product.name,
@@ -130,6 +134,7 @@ export const useCartStore = create(
       version: 1,
       // @ts-expect-error zustand types
       partialize: (state) => ({
+        email: state.email,
         items: state.items,
         totalItems: state.totalItems,
         totalPrice: state.totalPrice,

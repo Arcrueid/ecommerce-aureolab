@@ -10,12 +10,14 @@ type CartListItemProps = {
   item: CartItem;
   removeItem: (product: Product) => void;
   updateQuantity: (product: Product, quantity: number) => void;
+  readOnly?: boolean;
 };
 
 export const CartListItem = ({
   item,
   removeItem,
   updateQuantity,
+  readOnly,
   className,
   ...props
 }: CartListItemProps & ComponentPropsWithoutRef<"article">) => {
@@ -35,14 +37,16 @@ export const CartListItem = ({
         <div className="flex items-center justify-between">
           <h4 className="font-medium">{item.product.name}</h4>
           <div>
-            <button
-              type="button"
-              onClick={() => removeItem(item.product)}
-              className="cursor-pointer text-gray-400 transition-colors hover:text-red-500"
-              aria-label={`Eliminar ${item.product.name} del carrito`}
-            >
-              <TrashIcon className="size-4" />
-            </button>
+            {!readOnly ? (
+              <button
+                type="button"
+                onClick={() => removeItem(item.product)}
+                className="cursor-pointer text-gray-400 transition-colors hover:text-red-500"
+                aria-label={`Eliminar ${item.product.name} del carrito`}
+              >
+                <TrashIcon className="size-4" />
+              </button>
+            ) : null}
           </div>
         </div>
 
@@ -59,7 +63,7 @@ export const CartListItem = ({
                 }
                 className="flex h-6 w-6 items-center justify-center rounded border border-gray-300 text-gray-600 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label="Disminuir cantidad"
-                disabled={item.quantity <= 1}
+                disabled={item.quantity <= 1 || readOnly}
               >
                 <Minus className="size-3" />
               </button>
@@ -70,6 +74,7 @@ export const CartListItem = ({
                 onClick={() => updateQuantity(item.product, item.quantity + 1)}
                 className="flex h-6 w-6 items-center justify-center rounded border border-gray-300 text-gray-600 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
                 aria-label="Aumentar cantidad"
+                disabled={readOnly}
               >
                 <Plus className="size-3" />
               </button>

@@ -43,3 +43,24 @@ export const validateQuery =
       }
     }
   };
+
+// Middleware for body validation
+export const validateBody =
+  (schema: z.ZodTypeAny) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    try {
+      req.body = schema.parse(req.body);
+      next();
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        next(
+          createHttpError(400, {
+            message: "Invalid request body",
+            errors: error.errors,
+          })
+        );
+      } else {
+        next(error);
+      }
+    }
+  };

@@ -87,7 +87,6 @@ router.get(
   }
 );
 
-// Route to get a specific product by ID
 router.get(
   "/:id",
   validateParams(productIdSchema),

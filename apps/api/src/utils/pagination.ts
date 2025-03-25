@@ -1,6 +1,3 @@
-/**
- * Creates pagination metadata
- */
 export const createPaginationMeta = (
   page: number,
   perPage: number,

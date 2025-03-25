@@ -1,43 +1,53 @@
+import { type ComponentPropsWithoutRef } from "react";
+
 import { type Product } from "@repo/database";
 import { Minus, Plus, TrashIcon } from "lucide-react";
 
-import { formatCurrency } from "~/lib/utils";
+import { cn, formatCurrency } from "~/lib/utils";
 import { type CartItem } from "~/stores/cart-store";
+
+type CartListItemProps = {
+  item: CartItem;
+  removeItem: (product: Product) => void;
+  updateQuantity: (product: Product, quantity: number) => void;
+};
 
 export const CartListItem = ({
   item,
   removeItem,
   updateQuantity,
-}: {
-  item: CartItem;
-  removeItem: (product: Product) => void;
-  updateQuantity: (product: Product, quantity: number) => void;
-}) => {
+  className,
+  ...props
+}: CartListItemProps & ComponentPropsWithoutRef<"article">) => {
   return (
     <article
-      className="flex flex-col rounded-lg border border-gray-100 bg-white p-2.5 shadow-sm"
-      role="listitem"
+      className={cn("flex flex-row items-center gap-3", className)}
+      {...props}
     >
-      <div className="flex gap-3">
-        <figure className="size-16 flex-shrink-0 overflow-hidden rounded-sm border border-gray-200">
-          <img
-            src={item.product.image}
-            alt={item.product.name}
-            className="h-full w-full object-cover"
-            loading="lazy"
-          />
-        </figure>
-        <div className="flex flex-1 flex-col">
-          <header className="flex justify-between text-base font-medium text-gray-900">
-            <h3 className="line-clamp-2 text-sm">{item.product.name}</h3>
-          </header>
-          <div className="mt-auto flex items-end justify-between">
-            <dl>
-              <dt className="sr-only">Precio</dt>
-              <dd className="text-sm font-medium">
-                {formatCurrency(item.product.price)}
-              </dd>
-            </dl>
+      <figure className="size-16 flex-shrink-0 overflow-hidden rounded-md border">
+        <img
+          src={item.product.image}
+          alt={`Imagen de ${item.product.name}`}
+          className="h-full w-full object-cover object-center"
+        />
+      </figure>
+      <div className="flex flex-1 flex-col gap-1">
+        <div className="flex items-center justify-between">
+          <h4 className="font-medium">{item.product.name}</h4>
+          <div>
+            <button
+              type="button"
+              onClick={() => removeItem(item.product)}
+              className="cursor-pointer text-gray-400 transition-colors hover:text-red-500"
+              aria-label={`Eliminar ${item.product.name} del carrito`}
+            >
+              <TrashIcon className="size-4" />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center justify-start gap-3">
             <fieldset
               className="flex items-center gap-2"
               aria-label="Controles de cantidad"
@@ -64,17 +74,17 @@ export const CartListItem = ({
                 <Plus className="size-3" />
               </button>
             </fieldset>
+            <span className="text-sm text-gray-500">
+              {formatCurrency(item.product.price)}
+            </span>
           </div>
-        </div>
-        <div>
-          <button
-            type="button"
-            onClick={() => removeItem(item.product)}
-            className="text-gray-400 transition-colors hover:text-red-500"
-            aria-label={`Eliminar ${item.product.name} del carrito`}
+
+          <span
+            className="font-medium"
+            aria-label={`Precio total: ${formatCurrency(item.product.price * item.quantity)}`}
           >
-            <TrashIcon className="size-4" />
-          </button>
+            {formatCurrency(item.product.price * item.quantity)}
+          </span>
         </div>
       </div>
     </article>

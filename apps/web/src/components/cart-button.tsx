@@ -40,7 +40,7 @@ export const CartButton = () => {
       container={document.body.querySelector("#root") as HTMLElement}
       modal={false}
     >
-      <DrawerTrigger>
+      <DrawerTrigger asChild>
         <button
           className="group flex cursor-pointer flex-row items-center gap-3"
           aria-label={`Ver carrito con ${totalItems} productos`}
@@ -64,7 +64,7 @@ export const CartButton = () => {
       </DrawerTrigger>
 
       <DrawerContent
-        className="xs:w-[360px] fixed top-2 right-2 bottom-2 z-60 flex !w-full max-w-full border-none bg-transparent p-2 outline-none"
+        className="fixed top-2 right-2 bottom-2 z-60 flex !w-full max-w-full border-none bg-transparent p-2 outline-none data-[vaul-drawer-direction=right]:sm:max-w-lg"
         style={
           { "--initial-transform": "calc(100% + 8px)" } as React.CSSProperties
         }
@@ -80,7 +80,7 @@ export const CartButton = () => {
                 Listado de productos ({totalItems})
               </DrawerDescription>
             ) : null}
-            <DrawerClose className="absolute top-1 right-1">
+            <DrawerClose className="absolute top-1 right-1" asChild>
               <Button variant="ghost" size="icon" aria-label="Cerrar carrito">
                 <XIcon className="size-6" />
               </Button>
@@ -102,6 +102,7 @@ export const CartButton = () => {
                     item={item}
                     removeItem={removeItem}
                     updateQuantity={updateQuantity}
+                    className="rounded-lg border border-gray-100 bg-white p-2.5 shadow-sm"
                   />
                 ))}
               </div>
@@ -126,7 +127,7 @@ export const CartButton = () => {
                 </Button>
               </>
             ) : null}
-            <DrawerClose>
+            <DrawerClose asChild>
               <Button variant="outline" className="w-full cursor-pointer">
                 Seguir comprando
               </Button>

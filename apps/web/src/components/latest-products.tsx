@@ -1,17 +1,12 @@
-import { type Product } from "@repo/database";
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { ArrowRightIcon } from "lucide-react";
 
-import { type PaginateResponse } from "~/models/request";
+import { useLatestProducts } from "~/hooks/use-latest-products";
 
 import { ProductCard } from "./product-card";
 
 export const LatestProducts = () => {
-  const { data: products } = useQuery({
-    queryKey: ["latest-products"],
-    queryFn: () => fetchProducts(),
-  });
+  const { products } = useLatestProducts();
 
   return (
     <section className="container mx-auto my-12">
@@ -32,9 +27,3 @@ export const LatestProducts = () => {
     </section>
   );
 };
-
-function fetchProducts(): Promise<PaginateResponse<Product>> {
-  return fetch(
-    `${__API_URL__}/api/products/?page=1&per_page=4&order_by=createdAt&order=desc`,
-  ).then((res) => res.json());
-}

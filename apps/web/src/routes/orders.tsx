@@ -1,20 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { ChangeUserButton } from "~/components/change-user-button";
 import { OrderListItem } from "~/components/orders/order-list-item";
 import { useOrders } from "~/hooks/use-orders";
 import { type Order } from "~/services/orders";
 import { useCartStore } from "~/stores/cart-store";
 
 function OrdersPage() {
-  const email = useCartStore((state) => state.email);
   const { data, isFetching } = useOrders();
+  const email = useCartStore((state) => state.email);
 
   if (!data?.success) {
     return (
       <div className="container mx-auto max-w-5xl px-4 py-8">
         <div className="my-6 rounded-lg border border-gray-200 bg-white p-8 text-center shadow">
           <h2 className="text-xl font-medium">Error al cargar los pedidos</h2>
-          <p className="mt-2 text-gray-600">{data?.message}</p>
+          <p className="mt-2 mb-6 text-gray-600">{data?.message}</p>
+          <ChangeUserButton />
         </div>
       </div>
     );
@@ -29,6 +31,7 @@ function OrdersPage() {
             {email}
           </p>
         </div>
+        <ChangeUserButton />
       </header>
 
       {isFetching && !data?.orders?.length && (

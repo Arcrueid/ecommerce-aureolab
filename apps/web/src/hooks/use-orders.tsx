@@ -10,11 +10,12 @@ export const useOrders = () => {
     data: orders,
     isFetching,
     isPlaceholderData,
+    refetch
   } = useQuery({
     queryKey: ["orders", email],
     queryFn: () => fetchOrders(email),
     placeholderData: keepPreviousData,
   });
 
-  return { orders, isFetching, isPlaceholderData } as const;
+  return { orders, isFetching, isPlaceholderData, refetch } as const;
 };

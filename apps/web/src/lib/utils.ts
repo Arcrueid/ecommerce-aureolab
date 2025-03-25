@@ -15,3 +15,11 @@ export const formatCurrency = (amount: number) =>
   currencyFormatter.format(amount);
 
 export const formatNumber = (value: number) => numberFormatter.format(value);
+
+export const formatDate = (dateString: string) => {
+  return new Date(dateString).toLocaleDateString("es-CL", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};

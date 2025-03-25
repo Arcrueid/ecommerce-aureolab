@@ -26,7 +26,7 @@ async function main() {
     return {
       name: productName,
       slug: slug,
-      price: faker.number.int({ min: 5000, max: 10000 }),
+      price: faker.number.int({ min: 5000, max: 100000 }),
       description: faker.commerce.productDescription(),
       category: faker.commerce.department(),
       image: faker.image.urlPicsumPhotos({

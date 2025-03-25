@@ -30,6 +30,7 @@ function CheckoutPage() {
     removeItem,
     clearCart,
     setEmail,
+    email,
   } = useCartStore();
 
   const [currentStep, setCurrentStep] = useState<"customer-info" | "payment">(
@@ -37,7 +38,7 @@ function CheckoutPage() {
   );
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    email: email,
     address: "",
   });
   const [stripeReady, setStripeReady] = useState(false);

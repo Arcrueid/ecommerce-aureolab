@@ -21,6 +21,8 @@ export interface OrderItem {
   name: string;
   price: number;
   quantity: number;
+  refundedQuantity?: number;
+  refundStatus?: "none" | "partial" | "full";
 }
 
 export async function createOrder(
@@ -36,7 +38,9 @@ export async function createOrder(
   }).then((res) => res.json());
 }
 
-export async function fetchOrders(email: string): Promise<Order[]> {
+export async function fetchOrders(
+  email: string,
+): Promise<{ success: boolean; orders: Order[]; message: string }> {
   return fetch(`${__API_URL__}/api/orders/by-email/${email}`).then((res) =>
     res.json(),
   );

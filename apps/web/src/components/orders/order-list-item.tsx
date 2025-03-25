@@ -92,16 +92,20 @@ export const OrderListItem = ({ order }: { order: Order }) => {
               className={`inline-block rounded px-2 py-1 text-xs ${
                 order.status === "refunded"
                   ? "bg-red-100 text-red-800"
-                  : order.status === "succeeded"
-                    ? "bg-green-100 text-green-800"
-                    : "bg-yellow-100 text-yellow-800"
+                  : order.status === "partially_refunded"
+                    ? "bg-orange-100 text-orange-800"
+                    : order.status === "succeeded"
+                      ? "bg-green-100 text-green-800"
+                      : "bg-yellow-100 text-yellow-800"
               }`}
             >
               {order.status === "refunded"
                 ? "Reembolsado"
-                : order.status === "succeeded"
-                  ? "Completado"
-                  : "En proceso"}
+                : order.status === "partially_refunded"
+                  ? "Parcialmente Reembolsado"
+                  : order.status === "succeeded"
+                    ? "Completado"
+                    : "En proceso"}
             </p>
           </div>
         </div>
@@ -121,7 +125,7 @@ export const OrderListItem = ({ order }: { order: Order }) => {
             {order.items.map((item: OrderItem) => (
               <div key={item.id} className="flex items-center p-4">
                 {/* Only allow selection if the order is completed and not refunded */}
-                {order.status === "succeeded" && (
+                {item.refundStatus === "none" && (
                   <input
                     type="checkbox"
                     className="mr-3 h-4 w-4"
@@ -133,7 +137,20 @@ export const OrderListItem = ({ order }: { order: Order }) => {
                   <p className="font-medium">{item.name}</p>
                   <p className="text-sm text-gray-500">
                     {formatCurrency(item.price)} x {item.quantity}
+                    {item.refundedQuantity ? (
+                      <span className="ml-2 font-medium text-red-600">
+                        ({item.refundedQuantity} reembolsado
+                        {item.refundedQuantity > 1 ? "s" : ""})
+                      </span>
+                    ) : null}
                   </p>
+                  {item.refundStatus && item.refundStatus !== "none" && (
+                    <span className="mt-1 inline-block rounded bg-red-100 px-2 py-0.5 text-xs text-red-800">
+                      {item.refundStatus === "full"
+                        ? "Reembolsado"
+                        : "Parcialmente Reembolsado"}
+                    </span>
+                  )}
                 </div>
                 <p className="font-medium">
                   {formatCurrency(item.price * item.quantity)}
@@ -148,8 +165,9 @@ export const OrderListItem = ({ order }: { order: Order }) => {
               <p className="font-bold">{formatCurrency(order.total)}</p>
             </div>
 
-            {/* Only show refund buttons if the order is completed and not refunded */}
-            {order.status === "succeeded" && (
+            {/* Only show refund buttons if the order is completed or partially refunded */}
+            {(order.status === "succeeded" ||
+              order.status === "partially_refunded") && (
               <div className="flex flex-wrap gap-2">
                 <Button
                   variant="outline"

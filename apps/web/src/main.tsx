@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { NuqsAdapter } from "nuqs/adapters/react";
 import ReactDOM from "react-dom/client";
+import { Toaster } from "sonner";
 
 import { routeTree } from "./routeTree.gen";
 
@@ -34,6 +35,7 @@ if (!rootElement.innerHTML) {
       <NuqsAdapter>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
+          <Toaster position="top-center" />
         </QueryClientProvider>
       </NuqsAdapter>
     </StrictMode>,

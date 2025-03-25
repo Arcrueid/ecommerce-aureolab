@@ -1,12 +1,20 @@
+import { useCallback } from "react";
+
 import { type Product } from "@repo/database";
 import { ShoppingCartIcon } from "lucide-react";
 
 import { formatCurrency } from "~/lib/utils";
+import { useCartStore } from "~/stores/cart-store";
 
 import { Button } from "./ui/button";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const { category, name, price, image, description } = product;
+  const addItem = useCartStore((state) => state.addItem);
+
+  const handleAddToCart = useCallback(() => {
+    addItem(product);
+  }, [addItem, product]);
 
   return (
     <article className="flex flex-col items-center gap-2 rounded-sm border p-3 pb-4 shadow-2xs transition-shadow duration-300 hover:shadow-xl">
@@ -39,6 +47,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         <footer className="mt-auto flex w-full flex-wrap items-center justify-between border-t border-gray-100 pt-3.5 sm:flex-row">
           <Button
             size="default"
+            onClick={handleAddToCart}
             className="w-full cursor-pointer rounded-sm text-sm transition-all duration-200 hover:bg-[#fed137] hover:text-black"
             aria-label={`Agregar ${name} al carrito`}
           >

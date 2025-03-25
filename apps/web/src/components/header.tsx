@@ -8,9 +8,15 @@ export const Header = () => {
     <header className="sticky top-0 z-10 border-b border-gray-200 bg-white/85 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center gap-2 px-5 md:pl-1">
         <nav className="flex w-full flex-row gap-2">
-          <button aria-label="Menú" className="flex flex-1 md:hidden">
-            Menu
-          </button>
+          <div className="flex flex-1 items-center md:hidden">
+            <Link
+              to="/profile"
+              className="text-sm font-medium text-black [&.active]:text-black"
+              aria-label="Ir a mis pedidos"
+            >
+              Mis pedidos
+            </Link>
+          </div>
 
           <div className="flex flex-1 items-center justify-center md:justify-start">
             <Link to="/" aria-label="Ir a la página principal">
@@ -24,9 +30,9 @@ export const Header = () => {
             <Link
               to="/profile"
               className="hidden text-sm font-medium text-gray-400 hover:text-black md:flex [&.active]:text-black"
-              aria-label="Ir a perfil de usuario"
+              aria-label="Ir a mis pedidos"
             >
-              Perfil
+              Mis pedidos
             </Link>
             <div className="flex items-center gap-2 text-sm font-medium text-gray-400 [&.active]:text-black">
               <CartButton />

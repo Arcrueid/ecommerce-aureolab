@@ -16,7 +16,7 @@ type CartStore = {
 };
 
 type CartActions = {
-  addItem: (product: Product, quantity?: number) => void;
+  addItem: (product: Product, quantity?: number, restore?: boolean) => void;
   removeItem: (product: Product) => void;
   updateQuantity: (product: Product, quantity: number) => void;
   clearCart: () => void;
@@ -31,7 +31,7 @@ export const useCartStore = create(
       totalPrice: 0,
       showCart: false,
       setShowCart: (show: boolean) => set({ showCart: show }),
-      addItem: (product: Product, quantity = 1) => {
+      addItem: (product: Product, quantity = 1, restore = false) => {
         const { items } = get();
         const existingItem = items.find(
           (item) => item.product.id === product.id,
@@ -60,14 +60,20 @@ export const useCartStore = create(
 
         set({ items: newItems, totalItems, totalPrice });
 
-        toast.success(product.name, {
-          description: "Se agregó al carrito correctamente",
-        });
+        toast.success(
+          restore ? `${quantity} x ${product.name}` : product.name,
+          {
+            description: restore
+              ? "Se restauró al carrito correctamente"
+              : "Se agregó al carrito correctamente",
+          },
+        );
       },
 
       removeItem: (product: Product) => {
         const { items, addItem } = get();
         const newItems = items.filter((item) => item.product.id !== product.id);
+        const item = items.find((item) => item.product.id === product.id);
 
         const totalItems = newItems.reduce(
           (sum, item) => sum + item.quantity,
@@ -80,13 +86,13 @@ export const useCartStore = create(
 
         set({ items: newItems, totalItems, totalPrice });
 
-        toast.success(product.name, {
+        toast.success(`${item?.quantity} x ${product.name}`, {
           description: "Se eliminó del carrito correctamente",
           duration: 10000,
           action: {
             label: "Deshacer",
             onClick: () => {
-              addItem(product);
+              addItem(product, item?.quantity || 1, true);
             },
           },
         });
@@ -127,6 +133,7 @@ export const useCartStore = create(
         items: state.items,
         totalItems: state.totalItems,
         totalPrice: state.totalPrice,
+        showCart: state.showCart,
       }),
       storage: createJSONStorage(() => localStorage),
     },

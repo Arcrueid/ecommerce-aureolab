@@ -10,7 +10,7 @@ export const Header = () => {
         <nav className="flex w-full flex-row gap-2">
           <div className="flex flex-1 items-center md:hidden">
             <Link
-              to="/profile"
+              to="/orders"
               className="text-sm font-medium text-black [&.active]:text-black"
               aria-label="Ir a mis pedidos"
             >
@@ -28,7 +28,7 @@ export const Header = () => {
 
           <div className="flex flex-1 items-center justify-end gap-8">
             <Link
-              to="/profile"
+              to="/orders"
               className="hidden text-sm font-medium text-gray-400 hover:text-black md:flex [&.active]:text-black"
               aria-label="Ir a mis pedidos"
             >

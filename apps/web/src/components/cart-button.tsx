@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 
+import { Link } from "@tanstack/react-router";
 import { ShoppingCartIcon, XIcon } from "lucide-react";
 
 import {
@@ -114,8 +115,14 @@ export const CartButton = () => {
                   <p>Total</p>
                   <p>{formatCurrency(totalPrice)}</p>
                 </div>
-                <Button className="w-full cursor-pointer hover:bg-[#fed137] hover:text-black">
-                  Finalizar compra
+
+                <Button
+                  asChild
+                  className="w-full cursor-pointer hover:bg-[#fed137] hover:text-black"
+                >
+                  <Link to="/checkout" onClick={() => setShowCart(false)}>
+                    Finalizar compra
+                  </Link>
                 </Button>
               </>
             ) : null}

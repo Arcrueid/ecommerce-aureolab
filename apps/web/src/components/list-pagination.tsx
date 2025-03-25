@@ -15,14 +15,16 @@ import {
 export const ListPagination = ({
   total,
   pageIndex,
+  visiblePages = 4,
 }: {
   total: number;
   pageIndex: number;
+  visiblePages?: number;
 }) => {
   const [, setParams] = usePaginationSearchParams();
 
-  const visiblePages = useMemo(() => {
-    const maxPages = 4;
+  const pages = useMemo(() => {
+    const maxPages = visiblePages;
     let startPage = 1;
     let endPage = Math.min(total, maxPages);
 
@@ -40,12 +42,12 @@ export const ListPagination = ({
       { length: endPage - startPage + 1 },
       (_, i) => startPage + i,
     );
-  }, [total, pageIndex]);
+  }, [visiblePages, total, pageIndex]);
 
-  const showStartEllipsis = useMemo(() => visiblePages[0] > 1, [visiblePages]);
+  const showStartEllipsis = useMemo(() => pages[0] > 1, [pages]);
   const showEndEllipsis = useMemo(
-    () => visiblePages[visiblePages.length - 1] < total,
-    [visiblePages, total],
+    () => pages[pages.length - 1] < total,
+    [pages, total],
   );
 
   return (
@@ -73,7 +75,7 @@ export const ListPagination = ({
           </PaginationItem>
         )}
 
-        {visiblePages.map((page) => (
+        {pages.map((page) => (
           <PaginationItem key={page}>
             <PaginationLink
               onClick={() => setParams({ pageIndex: page })}

@@ -66,6 +66,7 @@ pnpm db:init
 ### Todo el proyecto
 
 ```bash
+# Desde la raíz
 pnpm dev
 ```
 

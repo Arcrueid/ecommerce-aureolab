@@ -4,7 +4,7 @@ import {
   ordersTable,
   refundItemsTable,
   refundsTable,
-} from "@repo/database/schema";
+} from "@repo/database";
 import type { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { z } from "zod";

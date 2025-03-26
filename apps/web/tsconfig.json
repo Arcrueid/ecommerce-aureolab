@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "outDir": "dist",
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "target": "ESNext",

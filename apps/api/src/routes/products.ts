@@ -4,27 +4,21 @@ import {
   count,
   db,
   desc,
-  eq,
   ilike,
+  productsTable,
   type SQL,
 } from "@repo/database";
-import { productsTable } from "@repo/database/schema";
 import {
   type NextFunction,
   type Request,
   type Response,
   Router,
 } from "express";
-import createHttpError from "http-errors";
 import { z } from "zod";
-import { validateParams, validateQuery } from "../middlewares/validation";
+import { validateQuery } from "../middlewares/validation";
 import { createPaginationMeta } from "../utils/pagination";
 
 const router = Router();
-
-const productIdSchema = z.object({
-  id: z.string().uuid(),
-});
 
 const PaginateRequest = z.object({
   page: z.coerce.number().nullish(),

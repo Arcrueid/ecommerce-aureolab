@@ -2,12 +2,9 @@
   "name": "@repo/database",
   "version": "1.0.0",
   "private": "true",
-  "exports": {
-    ".": "./index.ts",
-    "./schema": "./schema.ts",
-    "./types": "./types.ts"
-  },
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
     "db:check": "drizzle-kit check",
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",

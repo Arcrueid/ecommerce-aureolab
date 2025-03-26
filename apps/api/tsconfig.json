@@ -6,7 +6,8 @@
     "lib": ["esnext"],
     "esModuleInterop": true,
     "moduleResolution": "node",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
   "include": ["src", ".eslintrc.cjs"]
 }

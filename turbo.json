@@ -5,7 +5,10 @@
     "build": {
       "dependsOn": ["^build"]
     },
-    "lint": {},
+    "lint": {
+      "cache": false,
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true
@@ -16,6 +19,14 @@
     },
     "db:init": {
       "cache": false
+    },
+    "test": {
+      "cache": false,
+      "outputs": []
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

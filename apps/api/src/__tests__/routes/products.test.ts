@@ -45,6 +45,7 @@ jest.mock("@repo/database", () => {
     },
   };
   return {
+    productsTable: {},
     db: mockDb,
     eq: jest.fn(),
     desc: jest.fn(),
@@ -81,7 +82,6 @@ describe("Products API", () => {
     });
 
     it("should filter products by search term", async () => {
-      // Mock data
       const mockProducts = [{ id: "1", name: "Product 1", price: 100 }];
       const mockCount = [{ total: 1 }];
 

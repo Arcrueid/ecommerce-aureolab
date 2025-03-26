@@ -14,6 +14,10 @@ const PORT = process.env.WEB_PORT || 3000;
 const API_URL = process.env.API_URL || "http://localhost:3001";
 const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY || "";
 
+if (!API_URL || !STRIPE_PUBLISHABLE_KEY) {
+  throw new Error("Missing environment variables");
+}
+
 export default defineConfig({
   define: {
     __API_URL__: JSON.stringify(API_URL),

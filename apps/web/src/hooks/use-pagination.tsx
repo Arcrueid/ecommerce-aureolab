@@ -11,12 +11,16 @@ const paginationParsers = {
     .withOptions({ clearOnDefault: true }),
   orderBy: parseAsString.withOptions({ clearOnDefault: true }),
   order: parseAsString.withOptions({ clearOnDefault: true }),
+  search: parseAsString
+    .withDefault("")
+    .withOptions({ clearOnDefault: true, throttleMs: 600 }),
 };
 const paginationUrlKeys = {
   pageIndex: "page",
   pageSize: "per_page",
   orderBy: "order_by",
   order: "order",
+  search: "search",
 };
 
 export function usePaginationSearchParams() {

@@ -17,6 +17,7 @@ export const useProducts = () => {
       params.pageSize,
       params.orderBy,
       params.order,
+      params.search,
     ],
     queryFn: () =>
       fetchProducts({
@@ -24,6 +25,7 @@ export const useProducts = () => {
         per_page: params.pageSize,
         order_by: params.orderBy ?? undefined,
         order: params.order ?? undefined,
+        search: params.search ?? undefined,
       }),
     placeholderData: keepPreviousData,
   });

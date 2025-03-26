@@ -14,7 +14,7 @@ export const LatestProducts = () => {
         <h2 className="text-2xl font-bold">Últimos Productos</h2>
         <Link
           to="/productos"
-          className="flex flex-row items-center gap-1 text-sm font-medium text-gray-400 hover:text-black"
+          className="mr-3 flex flex-row items-center gap-1 text-sm font-medium"
         >
           Ver Todos <ArrowRightIcon className="size-4" />
         </Link>

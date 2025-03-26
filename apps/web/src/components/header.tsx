@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { CartButton } from "./cart/cart-button";
+import { InputSearch } from "./input-search";
 import { LogoAureolab } from "./logo-aureolab";
 
 export const Header = () => {
@@ -24,7 +25,9 @@ export const Header = () => {
             </Link>
           </div>
 
-          <ul className="hidden items-center justify-center gap-8 md:flex"></ul>
+          <div className="hidden w-96 items-center justify-center md:flex">
+            <InputSearch />
+          </div>
 
           <div className="flex flex-1 items-center justify-end gap-8">
             <Link

@@ -14,6 +14,10 @@ body {
   @apply min-h-dvh;
 }
 
+body {
+  @apply !pointer-events-auto;
+}
+
 #root {
   @apply flex min-h-dvh flex-col;
 }

@@ -38,6 +38,7 @@ export const CartButton = () => {
       open={showCart}
       onOpenChange={setShowCart}
       container={document.body.querySelector("#root") as HTMLElement}
+      modal={false}
       noBodyStyles
     >
       <DrawerTrigger asChild>

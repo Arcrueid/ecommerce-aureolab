@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run lint build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "serve": "turbo run serve",

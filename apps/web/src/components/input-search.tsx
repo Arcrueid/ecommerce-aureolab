@@ -8,7 +8,8 @@ import { usePaginationSearchParams } from "~/hooks/use-pagination";
 import { cn } from "~/lib/utils";
 
 export const InputSearch = () => {
-  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = usePaginationSearchParams();
+  const [query, setQuery] = useState(searchParams.search || "");
   const navigate = useNavigate();
   const pathname = useLocation({
     select: (location) => location.pathname,
@@ -16,14 +17,13 @@ export const InputSearch = () => {
 
   const isProductPage = pathname === "/productos";
   const disableSearch = ["/checkout"].includes(pathname);
-  const [, setSearchParams] = usePaginationSearchParams();
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setQuery(e.target.value);
 
       if (isProductPage) {
-        setSearchParams({ search: e.target.value });
+        setSearchParams({ search: e.target.value, pageIndex: 1 });
       }
     },
     [isProductPage, setSearchParams],
@@ -34,7 +34,7 @@ export const InputSearch = () => {
       e.preventDefault();
 
       if (isProductPage) {
-        setSearchParams({ search: query });
+        setSearchParams({ search: query, pageIndex: 1 });
       } else {
         navigate({
           to: "/productos",

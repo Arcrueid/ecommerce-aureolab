@@ -57,13 +57,20 @@ export const ListPagination = ({
           <PaginationPrevious
             disabled={pageIndex <= 1}
             className={pageIndex <= 1 ? "opacity-50" : ""}
-            onClick={() => setParams({ pageIndex: Math.max(1, pageIndex - 1) })}
+            onClick={() =>
+              setParams((prev) => ({
+                ...prev,
+                pageIndex: Math.max(1, prev.pageIndex - 1),
+              }))
+            }
           />
         </PaginationItem>
 
         {showStartEllipsis && (
           <PaginationItem>
-            <PaginationLink onClick={() => setParams({ pageIndex: 1 })}>
+            <PaginationLink
+              onClick={() => setParams((prev) => ({ ...prev, pageIndex: 1 }))}
+            >
               1
             </PaginationLink>
           </PaginationItem>
@@ -78,7 +85,9 @@ export const ListPagination = ({
         {pages.map((page) => (
           <PaginationItem key={page}>
             <PaginationLink
-              onClick={() => setParams({ pageIndex: page })}
+              onClick={() =>
+                setParams((prev) => ({ ...prev, pageIndex: page }))
+              }
               isActive={pageIndex === page}
             >
               {page}
@@ -94,7 +103,11 @@ export const ListPagination = ({
 
         {showEndEllipsis && (
           <PaginationItem>
-            <PaginationLink onClick={() => setParams({ pageIndex: total })}>
+            <PaginationLink
+              onClick={() =>
+                setParams((prev) => ({ ...prev, pageIndex: total }))
+              }
+            >
               {total}
             </PaginationLink>
           </PaginationItem>
@@ -105,7 +118,10 @@ export const ListPagination = ({
             disabled={pageIndex >= total}
             className={pageIndex >= total ? "opacity-50" : ""}
             onClick={() =>
-              setParams({ pageIndex: Math.min(total, pageIndex + 1) })
+              setParams((prev) => ({
+                ...prev,
+                pageIndex: Math.min(total, prev.pageIndex + 1),
+              }))
             }
           />
         </PaginationItem>

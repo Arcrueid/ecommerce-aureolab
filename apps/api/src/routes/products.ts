@@ -87,28 +87,4 @@ router.get(
   }
 );
 
-router.get(
-  "/:id",
-  validateParams(productIdSchema),
-  async (req: Request, response: Response, next: NextFunction) => {
-    try {
-      const { id } = req.params as z.infer<typeof productIdSchema>;
-
-      const product = await db
-        .select()
-        .from(productsTable)
-        .where(eq(productsTable.id, id))
-        .limit(1);
-
-      if (!product || product.length === 0) {
-        return next(createHttpError(404, { message: "Product not found" }));
-      }
-
-      response.status(200).json(product[0]);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
 export default router;

@@ -1,11 +1,10 @@
-import Stripe from "stripe";
 import { Router } from "express";
 import type { Request, Response, NextFunction } from "express";
 import { z } from "zod";
 import { validateBody } from "../middlewares/validation";
+import stripe from "../utils/stripe";
 
 const router = Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 const paymentIntentSchema = z.object({
   items: z.array(

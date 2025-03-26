@@ -9,10 +9,9 @@ import type { NextFunction, Request, Response } from "express";
 import { Router } from "express";
 import { z } from "zod";
 import { validateBody, validateParams } from "../middlewares/validation";
-import Stripe from "stripe";
+import stripe from "../utils/stripe";
 
 const router = Router();
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 const orderSchema = z.object({
   name: z.string(),
